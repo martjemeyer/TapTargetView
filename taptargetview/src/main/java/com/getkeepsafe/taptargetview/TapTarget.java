@@ -88,6 +88,7 @@ public class TapTarget {
   boolean drawBehindNavigationBar = true;
 
   boolean forceCenteredTarget = false;
+  boolean pulseEnabled = true;
 
   /**
    * Return a tap target for the overflow button from the given toolbar
@@ -445,6 +446,17 @@ public class TapTarget {
   public TapTarget targetRadius(int targetRadius) {
     this.targetRadius = targetRadius;
     return this;
+  }
+
+  /** Disable the pulse animation on the target circle **/
+  public TapTarget disablePulse() {
+    this.pulseEnabled = false;
+    return this;
+  }
+
+  /** Return whether pulse animation is enabled **/
+  public boolean isPulseEnabled() {
+    return pulseEnabled;
   }
 
   /** Return the id associated with this tap target **/
