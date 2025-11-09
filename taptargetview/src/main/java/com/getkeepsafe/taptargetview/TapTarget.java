@@ -46,6 +46,7 @@ public class TapTarget {
 
   float outerCircleAlpha = 0.96f;
   int targetRadius = 44;
+  int extraOuterCirclePadding = 0; // Additional padding to increase outer circle size
 
   Rect bounds;
   Drawable icon;
@@ -478,6 +479,20 @@ public class TapTarget {
   /** Return the pulse count (-1 for infinite, 0 for disabled, 1+ for specific count) **/
   public int getPulseCount() {
     return pulseCount;
+  }
+
+  /**
+   * Add extra padding to the outer circle to make it larger
+   * @param paddingDp Additional padding in dp to add to the outer circle radius
+   **/
+  public TapTarget outerCirclePadding(int paddingDp) {
+    this.extraOuterCirclePadding = paddingDp;
+    return this;
+  }
+
+  /** Return the extra outer circle padding in dp **/
+  public int getExtraOuterCirclePadding() {
+    return extraOuterCirclePadding;
   }
 
   /** Return the id associated with this tap target **/

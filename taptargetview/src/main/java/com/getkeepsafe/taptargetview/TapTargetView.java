@@ -961,7 +961,8 @@ public class TapTargetView extends View {
 
     final int textRadius = maxDistanceToPoints(centerX, centerY, textBounds);
     final int targetRadius = maxDistanceToPoints(centerX, centerY, expandedBounds);
-    return Math.max(textRadius, targetRadius) + CIRCLE_PADDING;
+    final int extraPadding = UiUtil.dp(getContext(), target.getExtraOuterCirclePadding());
+    return Math.max(textRadius, targetRadius) + CIRCLE_PADDING + extraPadding;
   }
 
   Rect getTextBounds() {
