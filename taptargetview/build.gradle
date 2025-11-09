@@ -1,52 +1,21 @@
-plugins {
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.mavenpublish)
-}
+apply plugin: 'com.android.library'
 
 android {
     namespace 'com.getkeepsafe.taptargetview'
-    compileSdk libs.versions.compileSdk.get().toInteger()
+    compileSdk 35
 
     defaultConfig {
-        minSdkVersion libs.versions.minSdk.get().toInteger()
+        minSdkVersion 23
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
 dependencies {
-    api libs.androidx.annotation
-    api libs.androidx.appcompat
-    implementation libs.androidx.core
-}
-
-// build a jar with source files
-tasks.register('sourcesJar', Jar) {
-    from android.sourceSets.main.java.srcDirs
-    archiveClassifier = 'sources'
-}
-
-tasks.register('javadoc', Javadoc) {
-    failOnError false
-    source = android.sourceSets.main.java.sourceFiles
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-}
-
-// build a jar with javadoc
-tasks.register('javadocJar', Jar) {
-    dependsOn javadoc
-    archiveClassifier = 'javadoc'
-    from javadoc.destinationDir
-}
-
-artifacts {
-    archives sourcesJar
-    archives javadocJar
-}
-
-import com.vanniktech.maven.publish.AndroidSingleVariantLibrary
-import com.vanniktech.maven.publish.SonatypeHost
-
-mavenPublishing {
-    configure(new AndroidSingleVariantLibrary("release", true, true))
-    publishToMavenCentral(SonatypeHost.DEFAULT, true)
-    signAllPublications()
+    api 'androidx.annotation:annotation:1.6.0'
+    api 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.core:core:1.10.1'
 }
