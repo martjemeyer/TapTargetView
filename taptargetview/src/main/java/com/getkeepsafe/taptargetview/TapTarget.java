@@ -89,6 +89,7 @@ public class TapTarget {
 
   boolean forceCenteredTarget = false;
   boolean pulseEnabled = true;
+  int pulseCount = -1; // -1 means infinite, 0 means disabled, 1+ means specific count
 
   /**
    * Return a tap target for the overflow button from the given toolbar
@@ -451,12 +452,32 @@ public class TapTarget {
   /** Disable the pulse animation on the target circle **/
   public TapTarget disablePulse() {
     this.pulseEnabled = false;
+    this.pulseCount = 0;
+    return this;
+  }
+
+  /**
+   * Set the number of times the target circle should pulse.
+   * @param count Number of pulses (1 or more). Use -1 for infinite pulses.
+   **/
+  public TapTarget pulseCount(int count) {
+    this.pulseCount = count;
+    if (count > 0 || count == -1) {
+      this.pulseEnabled = true;
+    } else {
+      this.pulseEnabled = false;
+    }
     return this;
   }
 
   /** Return whether pulse animation is enabled **/
   public boolean isPulseEnabled() {
     return pulseEnabled;
+  }
+
+  /** Return the pulse count (-1 for infinite, 0 for disabled, 1+ for specific count) **/
+  public int getPulseCount() {
+    return pulseCount;
   }
 
   /** Return the id associated with this tap target **/

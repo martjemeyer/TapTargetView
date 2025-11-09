@@ -536,6 +536,19 @@ public class TapTargetView extends View {
         return false;
       }
     });
+
+    // Configure pulse animation repeat count based on target settings
+    int repeatCount = target.getPulseCount();
+    if (repeatCount == -1) {
+      pulseAnimation.setRepeatCount(ValueAnimator.INFINITE);
+    } else if (repeatCount > 0) {
+      // ValueAnimator repeat count is how many times to repeat AFTER initial play
+      // So for 1 pulse we want repeat(0), for 2 pulses repeat(1), etc.
+      pulseAnimation.setRepeatCount(repeatCount - 1);
+    } else {
+      // If pulse count is 0 or negative (other than -1), disable
+      pulseAnimation.setRepeatCount(0);
+    }
   }
 
   private void startExpandAnimation() {
